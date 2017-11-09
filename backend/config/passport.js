@@ -3,7 +3,7 @@
   Configures strategies for use with passport authentication
 */
 const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models');
+const { User } = require('../models');
 
 const passportSetup = (passport) => {
   passport.serializeUser((user, done) => {
@@ -12,7 +12,8 @@ const passportSetup = (passport) => {
 
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await User.findById(id);
+      const userRequest = await User.findById(id);
+      const user = userRequest.get();
       done(null, user);
     } catch (err) {
       done(err, null);
@@ -23,11 +24,12 @@ const passportSetup = (passport) => {
     { passReqToCallback: true },
     async (req, username, password, done) => {
       try {
-        const user = await User.findOne({
+        const userRequest = await User.findOne({
           where: {
             username,
           },
         });
+        const user = userRequest.get();
         if (!user) {
           return done(null, false, req.flash('loginMessage', 'No user was found with that username.'));
         }
