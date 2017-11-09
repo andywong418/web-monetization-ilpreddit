@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import Title from '../components/Title';
+import Home from './Home';
 import { Route } from 'react-router-dom';
-import { ConnectedRouter, routerMiddleware, push } from 'react-router-redux';
-const AppContainer = ({ name, history }) => {
+import { ConnectedRouter} from 'react-router-redux';
+const AppContainer = ({history}) => {
     return (
         <div>
           <ConnectedRouter history={history}>
             <div>
-              <Route exact path="/" component={Title}/>
+              <Route exact path="/" component={Home}/>
 
             </div>
           </ConnectedRouter>
