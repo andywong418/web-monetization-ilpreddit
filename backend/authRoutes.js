@@ -5,6 +5,7 @@
 const express = require('express');
 const {User} = require('./models');
 
+
 const router = express.Router();
 
 const auth = (passport) => {
@@ -32,7 +33,7 @@ const auth = (passport) => {
             delete userCopy.password;
             res.status(200).json({
               success: true,
-              user: userCopy,
+              user,
             });
           }
         });
@@ -63,11 +64,11 @@ const auth = (passport) => {
         username: req.body.username,
         password: req.body.password,
       });
-      const userCopy = Object.assign({}, newUser);
-      delete userCopy.password;
+      const user = newUser.get();
+      delete user.password;
       return res.status(201).json({
         success: true,
-        user: userCopy,
+        user,
       });
     } catch (err) {
       console.error('Error encountered during user creation at POST /register route: ', err);
