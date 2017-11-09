@@ -47,7 +47,7 @@ class SideBar extends React.Component {
                     </Form.Field>
                     <Form.Field>
                       <label>Password</label>
-                      <input onChange={this.handleInputChange} type="password" placeholder="Password" />
+                      <input onChange={this.handleInputChange} name="password" type="password" placeholder="Password" />
                     </Form.Field>
                     <Button basic color ="orange" type="submit" onClick={() => this.props.onLogin(this.state.username, this.state.password)}>Log in</Button>
                     <Button basic color ="teal" type="submit" onClick={() => this.props.onRegister(this.state.username, this.state.password)}>Sign Up</Button>
