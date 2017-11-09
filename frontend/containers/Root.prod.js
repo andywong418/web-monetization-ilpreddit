@@ -3,14 +3,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import AppContainer from './AppContainer.js';
 
-export default function Root({ store }) {
+export default function Root({ store, history }) {
     return (
         <Provider store={store}>
-            <AppContainer />
+            <AppContainer history={history}/>
         </Provider>
     );
 }
 
 Root.propTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    history: PropTypes.object
 };

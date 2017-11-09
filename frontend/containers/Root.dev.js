@@ -4,11 +4,11 @@ import {Provider} from 'react-redux';
 import AppContainer from './AppContainer.js';
 import DevTools from './DevTools';
 
-export default function Root({ store }) {
+export default function Root({ store, history }) {
     return (
         <Provider store={store}>
             <div>
-                <AppContainer />
+                <AppContainer history={history}/>
                 <DevTools />
             </div>
         </Provider>
@@ -16,5 +16,6 @@ export default function Root({ store }) {
 }
 
 Root.propTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    history: PropTypes.object
 };

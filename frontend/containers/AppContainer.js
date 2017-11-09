@@ -2,17 +2,24 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import Title from '../components/Title';
-
-const AppContainer = ({ name }) => {
+import { Route } from 'react-router-dom';
+import { ConnectedRouter, routerMiddleware, push } from 'react-router-redux';
+const AppContainer = ({ name, history }) => {
     return (
         <div>
-            <Title name={name} />
+          <ConnectedRouter history={history}>
+            <div>
+              <Route exact path="/" component={Title}/>
+
+            </div>
+          </ConnectedRouter>
         </div>
     );
 };
 
 AppContainer.propTypes = {
     name: PropTypes.string,
+    history: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
