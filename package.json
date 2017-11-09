@@ -1,7 +1,12 @@
 {
-  "name": "react-node-starter",
+  "name": "reddit-clone",
   "version": "1.0.0",
-  "description": "an example for deploying a React + NodeJS app to Heroku",
+  "description": "Reddit clone",
+  "repository": 
+  {
+    "type": "git",
+    "url": "https://github.com/andywong418/reddit-clone.git"
+  },
   "main": "server.js",
   "scripts": {
     "build": "webpack --config webpack.prod.config.js",
@@ -47,10 +52,12 @@
   "devDependencies": {
     "babel-eslint": "^7.2.2",
     "concurrently": "^3.5.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^1.9.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
     "eslint-watch": "^3.1.0",
     "ignore-styles": "^5.0.1",
     "nodemon": "^1.11.0",
