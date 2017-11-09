@@ -2,3 +2,23 @@ h1 {
   font-family: helvetica;
   font-weight: 200;
 }
+
+.header-container {
+  background: aliceblue;
+  padding-top: 10px;
+}
+
+.sidebar-container {
+  float:right;
+  margin-top: 50px;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.sidebar-container .register-login {
+  margin-top: 20px;
+}
+
+.logout-btn {
+  margin-top: 20px;
+}
