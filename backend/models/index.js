@@ -55,14 +55,14 @@ const Comment = sequelize.define('comment', {
 
 // -- JOIN related --
 
-const PostVote = sequelize.define('postVote', {
+const PostVote = sequelize.define('post_vote', {
   upvote: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
   },
 });
 
-const CommentVote = sequelize.define('commentVote', {
+const CommentVote = sequelize.define('comment_vote', {
   upvote: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
