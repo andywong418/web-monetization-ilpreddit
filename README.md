@@ -1,3 +1,5 @@
+![SQL Table Diagram](./docs/horizons_reddit_clone.png)
+
 # React + Node Starter
 _for [Heroku](https://www.heroku.com/) deployment_
 
