@@ -2,7 +2,7 @@
 
 const defaultState = {
     description: '',
-    user: false
+    user: {}
 };
 
 export default function(state = defaultState, action) {
