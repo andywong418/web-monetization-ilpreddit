@@ -3,13 +3,18 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
 import createHistory from 'history/createBrowserHistory';
+import {browserHistory} from 'react-router';
+import { routerMiddleware} from 'react-router-redux';
 export const history = createHistory();
+const middleware = routerMiddleware(browserHistory);
 export function configureStore(initialState) {
     return createStore(
         rootReducer,
         initialState,
         compose(
-            applyMiddleware(thunk),
+            applyMiddleware(
+              middleware,
+              thunk),
             DevTools.instrument()
         ),
     );

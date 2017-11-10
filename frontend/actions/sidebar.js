@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { push } from 'react-router-redux';
 export const onRegister = (username, password) => async(dispatch) => {
     console.log("GETTING IN?", username, password);
     const urlString = '/api/user/register';
@@ -19,9 +19,14 @@ export const onLogin = (username, password) => async(dispatch) => {
     });
 };
 
-export const onLogOut = () => (user) => async(dispatch) => {
+export const onLogOut = (user) => async(dispatch) => {
     const urlString = '/api/user/logout';
     axios.post(urlString, {id: user.id}).then(resp => {
         dispatch({type: 'LOGOUT', payload: {}});
     });
 };
+
+export const onNavigateTo = (store, dest) => async(dispatch) => {
+  console.log("dest", dest);
+  dispatch(push(dest));
+}

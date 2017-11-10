@@ -8,7 +8,7 @@ export default function Root({ store, history }) {
     return (
         <Provider store={store}>
             <div>
-                <AppContainer history={history}/>
+                <AppContainer history={history} store={store}/>
                 <DevTools />
             </div>
         </Provider>
