@@ -1,11 +1,26 @@
 const express = require('express');
-const { User } = require('./models');
+const userRoutes = require('./api/user');
+const postRoutes = require('./api/post');
+const { Post } = require('./models');
 
 const router = express.Router();
 
 // SAMPLE ROUTE
 router.use('/users', (req, res) => {
   res.json({ success: true });
+});
+
+router.get('/post/all', async (req, res) => {
+  const post = await Post.findAll({
+    order: [
+      ['createdAt', 'DESC'],
+    ],
+  });
+  const postContents = post.map(postInstance => postInstance.get());
+  return res.status(200).json({
+    success: true,
+    posts: postContents,
+  });
 });
 
 // AUTH WALL (only logged in users can access the below routes)
@@ -19,40 +34,7 @@ router.use((req, res, next) => {
   return next();
 });
 
-router.get('/user/logout', (req, res) => {
-  req.logout();
-  return res.status(200).json({
-    success: true,
-  });
-});
-
-router.get('/user/:username', async (req, res) => {
-  const user = User.findOne({
-    where: {
-      username: req.params.username,
-    },
-  });
-  if (!user) {
-    return res.status(404).json({
-      success: false,
-      error: `Could not find the user ${req.params.username}`,
-    });
-  }
-  const userCopy = Object.assign({}, user);
-  delete userCopy.password;
-  return res.status(200).json({
-    success: true,
-    user: userCopy,
-  });
-});
-
-router.get('/user', async (req, res) => {
-  const userCopy = Object.assign({}, req.user);
-  delete userCopy.password;
-  return res.status(200).json({
-    success: true,
-    user: userCopy,
-  });
-});
+router.use('/user', userRoutes);
+router.use('/post', postRoutes);
 
 module.exports = router;

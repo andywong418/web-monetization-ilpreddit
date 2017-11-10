@@ -29,11 +29,11 @@ const auth = (passport) => {
               error: loginError.message,
             });
           } else {
-            const userCopy = Object.assign({}, user);
+            const userCopy = Object.assign({}, user.get());
             delete userCopy.password;
             res.status(200).json({
               success: true,
-              user,
+              user: userCopy,
             });
           }
         });
