@@ -7,13 +7,13 @@ const { User } = require('../models');
 
 const passportSetup = (passport) => {
   passport.serializeUser((user, done) => {
-    done(null, user.id);
+    const userId = user.get().id;
+    done(null, userId);
   });
 
   passport.deserializeUser(async (id, done) => {
     try {
-      const userRequest = await User.findById(id);
-      const user = userRequest.get();
+      const user = await User.findById(id);
       done(null, user);
     } catch (err) {
       done(err, null);
@@ -24,12 +24,11 @@ const passportSetup = (passport) => {
     { passReqToCallback: true },
     async (req, username, password, done) => {
       try {
-        const userRequest = await User.findOne({
+        const user = await User.findOne({
           where: {
             username,
           },
         });
-        const user = userRequest.get();
         if (!user) {
           return done(null, false, req.flash('loginMessage', 'No user was found with that username.'));
         }
