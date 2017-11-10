@@ -1,3 +1,17 @@
+Table of Contents
+=================
+
+* [API Documentation](#api-documentation)
+  * [Pull posts](#pull-posts)
+    * [GET /api/post/all](#get-apipostall)
+  * [Authentication](#authentication)
+    * [POST /api/user/login](#post-apiuserlogin)
+    * [POST /api/user/register](#post-apiuserregister)
+  * [Making and Modifying Posts](#making-and-modifying-posts)
+    * [POST /api/post/new](#post-apipostnew)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc.go)
+
 ![SQL Table Diagram](./docs/horizons_reddit_clone.png)
 
 # API Documentation
