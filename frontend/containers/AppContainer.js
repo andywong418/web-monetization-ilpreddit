@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Home from './Home';
 import NewPost from '../components/NewPost';
+import PostPage from './PostPage';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter} from 'react-router-redux';
 import {withRouter} from 'react-router';
@@ -11,6 +12,7 @@ const App = () => {
     <div>
       <Route exact path="/" component={Home}/>
       <Route path="/post/new" component={NewPost} />
+      <Route path="/view/post/:id" component={PostPage} />
     </div>
   );
 }
