@@ -47,7 +47,7 @@ class CommentList extends React.Component {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-        <Modal className ={comment.id} trigger={<Button className={comment.id} onClick={() => this.handleOpen(comment.id)}>Reply</Button>}
+        <Modal trigger={<Button onClick={() => this.handleOpen(comment.id)}>Reply</Button>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
         >

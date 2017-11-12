@@ -14,9 +14,10 @@ export default function(state=defaultState, action) {
       console.log("ACTION PAYLOAD", action.payload);
       newCommentState.comments = action.payload;
       return newCommentState;
-    case 'POST_COMMENTS':
+    case 'POST_COMMENT':
       const newCommentState2 = Object.assign({}, state);
-      newCommentState2.comments = [...newCommentState2.comments, action.payload];
+      console.log("action payload", action.payload);
+      newCommentState2.comments = [action.payload, ...newCommentState2.comments];
       return newCommentState2;
     case 'REPLY_COMMENT':
       console.log("action", action.payload);

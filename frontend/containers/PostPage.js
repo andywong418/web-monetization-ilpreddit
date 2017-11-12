@@ -38,7 +38,6 @@ class PostPage extends React.Component {
 
   render() {
     const {post, comments} = this.props;
-    console.log("comments", comments);
     return(
       <div>
       <Header />
