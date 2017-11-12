@@ -13,9 +13,23 @@ router.post('/new', (req, res) => {
   console.log("REQ BODY", req.body);
   req.body.content = req.body.comment;
   req.body.userId = req.user.id;
-  Comment.create(req.body).then(comment => {
+  return Comment.create(req.body).then(comment => {
     res.json(comment);
   })
 })
 
+router.post('/reply', (req, res) => {
+  console.log("is it in?", req.body);
+  if(!req.body.comment) {
+    return res.status(400).json({
+      success: false,
+      error: "You must not send an empty comment"
+    });
+  }
+  req.body.content = req.body.comment;
+  req.body.userId = req.user.id;
+  return Comment.create(req.body).then(comment => {
+    res.json(comment);
+  })
+})
 module.exports = router;

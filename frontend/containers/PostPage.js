@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Form, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchViewPost, fetchComments, postComments} from '../actions/postPage';
+import {fetchViewPost, fetchComments, postComments, replyComment} from '../actions/postPage';
 import {Link} from 'react-router-dom';
 import Header from '../components/Header';
 import CommentList from '../components/CommentList';
@@ -55,8 +55,8 @@ class PostPage extends React.Component {
         <Form.Button onClick={() => {this.props.postComments(this.state.comment, post.id); this.setState({comment: ''})}}>Submit</Form.Button>
       </Form>
       </Container>
-      <Container>
-      {comments.length !== 0 ? <CommentList comments={comments}/> : <div></div>}
+      <Container className="commentlist-container">
+      {comments.length !== 0 ? <CommentList comments={comments} replyComment = {this.props.replyComment} postId={post.id}/> : <div></div>}
       </Container>
       </div>
     )
@@ -71,6 +71,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({fetchViewPost, fetchComments, postComments}, dispatch);
+    return bindActionCreators({fetchViewPost, fetchComments, postComments, replyComment}, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

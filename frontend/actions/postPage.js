@@ -17,3 +17,9 @@ export const postComments = (comment, postId) => async(dispatch) => {
     dispatch({type: 'POST_COMMENT', payload: resp.data});
   })
 }
+
+export const replyComment = (comment, commentId, postId) => async(dispatch) => {
+  axios.post(`/api/comment/reply`, {comment, parentId: commentId, postId}).then(resp => {
+    dispatch({type: 'REPLY_COMMENT', payload: resp.data});
+  })
+}
