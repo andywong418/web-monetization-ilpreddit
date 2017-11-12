@@ -22,7 +22,9 @@ router.post('/new', async (req, res) => {
   const post = await Post.create({
     title: req.body.title,
     content: req.body.content,
+    imageUrl: req.body.imageUrl
   });
+
 
   const promiseArray = [
     post.setSubreddit(subreddit),
@@ -33,5 +35,7 @@ router.post('/new', async (req, res) => {
     success: true,
   });
 });
+
+
 
 module.exports = router;

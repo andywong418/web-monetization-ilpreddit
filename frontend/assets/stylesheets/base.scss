@@ -6,6 +6,7 @@ h1 {
 .header-container {
   background: aliceblue;
   padding-top: 10px;
+  margin-bottom: 40px;
 }
 
 .sidebar-container {
@@ -19,6 +20,27 @@ h1 {
   margin-top: 20px;
 }
 
+.post-container {
+  margin-bottom: 20px;
+}
+
+.post-header-container {
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.post-comment-box {
+  width: 400px;
+}
+.post-comment-box textarea {
+  height: 150px;
+}
 .logout-btn {
   margin-top: 20px;
+}
+
+.commentlist-container .card {
+  width: 100% !important;
 }

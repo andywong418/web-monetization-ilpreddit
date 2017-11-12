@@ -3,7 +3,8 @@
   Authentication routes involving Passport.js are defined here
 */
 const express = require('express');
-const { User } = require('./models');
+const {User} = require('./models');
+
 
 const router = express.Router();
 

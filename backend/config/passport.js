@@ -1,9 +1,6 @@
-/*
-  config/passport.js
-  Configures strategies for use with passport authentication
-*/
 const LocalStrategy = require('passport-local').Strategy;
 const { User } = require('../models');
+
 
 const passportSetup = (passport) => {
   passport.serializeUser((user, done) => {

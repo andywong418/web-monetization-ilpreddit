@@ -44,6 +44,9 @@ const Post = sequelize.define('post', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  imageUrl: {
+    type: Sequelize.STRING
+  }
 });
 
 const Comment = sequelize.define('comment', {
