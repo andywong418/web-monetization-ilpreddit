@@ -23,3 +23,15 @@ export const replyComment = (comment, commentId, postId) => async(dispatch) => {
     dispatch({type: 'REPLY_COMMENT', payload: resp.data});
   })
 }
+
+export const voteComment = (vote, commentId, postId) => async(dispatch) => {
+  axios.post(`/api/comment/vote`, {vote, commentId, postId}).then(resp => {
+    dispatch({type: 'VOTE_COMMENT', payload: resp.data});
+  })
+}
+
+export const unvoteComment = (commentId, postId) => async(dispatch) => {
+  axios.post(`/api/comment/unvote`, {commentId, postId}).then(resp => {
+    dispatch({type: 'UNVOTE_COMMENT', payload: resp.data});
+  })
+}

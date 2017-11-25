@@ -37,17 +37,25 @@ class CommentList extends React.Component {
   searchRecursiveNodes(topLevelComments, comments) {
     const postId = this.props.postId;
     return topLevelComments.map(comment => {
+      console.log("comment", comment);
       return(
         <div key={comment.id} style={{marginLeft: '10px'}}>
         <Card key={comment.id}>
         <Card.Content>
+          <Card.Header>
+            <span className="comment-header"> {comment.user.username} </span>
+            {comment.upvoted ? <Icon name='chevron up' size="small" color="orange"></Icon> : <Icon name='chevron up' size="small" color="grey"></Icon>}
+            <span style={{fontSize: '0.75em', marginRight: '10px'}}>{comment.upvotes} </span>
+            {comment.downvoted ? <Icon name='chevron down' size="small" color="violet"></Icon> : <Icon name='chevron down' size="small" color="grey"></Icon>}
+            <span style={{fontSize: '0.75em'}}>{comment.downvotes} </span>
+          </Card.Header>
           <Card.Description>
             <Icon name='terminal' />
             <span>{comment.content}</span>
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-        <Modal trigger={<Button onClick={() => this.handleOpen(comment.id)}>Reply</Button>}
+        <Modal trigger={<Button onClick={() => this.handleOpen(comment.id)} style={{marginRight: '10px'}}>Reply</Button>}
         open={this.state.modalOpen}
         onClose={this.handleClose}
         >
@@ -60,6 +68,12 @@ class CommentList extends React.Component {
             </Modal.Description>
           </Modal.Content>
         </Modal>
+        {
+          comment.upvoted ? <Button color='orange' style={{marginRight: '10px'}} onClick={() => this.props.unvoteComment(comment.id, postId)}>Upvote</Button> : <Button basic color='orange' style={{marginRight: '10px'}} onClick={() => this.props.voteComment(true, comment.id, postId)}>Upvote</Button>
+        }
+        {
+          comment.downvoted ? <Button color='violet' style={{marginRight: '10px'}} onClick={() => this.props.unvoteComment(comment.id, postId)}>Downvote</Button> : <Button basic color='violet' style={{marginRight: '10px'}} onClick={() => this.props.voteComment(false, comment.id, postId)}>Downvote</Button>
+        }
         </Card.Content>
         </Card>
         {comments.filter(x => x.parentId===comment.id).length !== 0 ? this.searchRecursiveNodes(comments.filter(x => x.parentId===comment.id), comments) : <div></div>}

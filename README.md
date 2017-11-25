@@ -1,6 +1,9 @@
 Table of Contents
 =================
-
+![](https://makeagif.com/gif/-En1ffM)
+This Reddit Clone has Postgres SQL schema that supports subreddits, posts and comments. Once a user is logged in, he/she can create a subreddit, submit a post and comment on posts. The comments of each posts are rendered recursively to show all replies to a comment.
+![](https://makeagif.com/gif/-up1hKX)
+Our clone also supports upvoting and downvoting of comments.
 * [API Documentation](#api-documentation)
   * [Pull posts](#pull-posts)
     * [GET /api/post/all](#get-apipostall)

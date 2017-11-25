@@ -48,6 +48,7 @@ class SideBar extends React.Component {
     render() {
         return (
           <div className="sidebar-container">
+            <Button basic color="teal" className="create-subreddit"> Create a new subreddit </Button>
             <Button basic color="red" onClick={this.submitPost}>Submit a new post</Button>
             {isEmpty(this.props.user) ?   <div className="register-login">
               <Modal trigger={        <Button.Group>
