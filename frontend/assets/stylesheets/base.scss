@@ -11,9 +11,10 @@ h1 {
 
 .sidebar-container {
   float:right;
-  margin-top: 50px;
-  margin-right: 20px;
   text-align: center;
+  position: absolute;
+  right: 20px;
+  top: 250px;
 }
 
 .sidebar-container .register-login {
@@ -43,4 +44,14 @@ h1 {
 
 .commentlist-container .card {
   width: 100% !important;
+}
+
+.comment-header {
+  font-weight: normal;
+  color: blue;
+  font-size: 0.75em;
+  margin-right: 15px;
+}
+.upvote {
+  display: block;
 }

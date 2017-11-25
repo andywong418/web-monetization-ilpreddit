@@ -3,7 +3,7 @@ const userRoutes = require('./api/user');
 const postRoutes = require('./api/post');
 const viewRoutes = require('./api/view');
 const commentRoutes = require('./api/comment');
-const { Post } = require('./models');
+const { Post, Subreddit } = require('./models');
 
 const router = express.Router();
 
@@ -17,6 +17,7 @@ router.get('/post/all', async (req, res) => {
     order: [
       ['createdAt', 'DESC'],
     ],
+    include: [{model: Subreddit}]
   });
   const postContents = post.map(postInstance => postInstance.get());
   return res.status(200).json({
