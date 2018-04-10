@@ -13,6 +13,7 @@ class SideBar extends React.Component {
         this.state = {
             username: '',
             password: '',
+            paymentPointer: '',
             modalOpen: false
         };
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -71,8 +72,12 @@ class SideBar extends React.Component {
                       <label>Password</label>
                       <input onChange={this.handleInputChange} name="password" type="password" placeholder="Password" />
                     </Form.Field>
+                    <Form.Field>
+                      <label>Payment Pointer</label>
+                      <input onChange={this.handleInputChange} name="paymentPointer" placeholder="Payment Pointer" />
+                    </Form.Field>
                     <Button basic color ="orange" type="submit" onClick={() => this.props.onLogin(this.state.username, this.state.password)}>Log in</Button>
-                    <Button basic color ="teal" type="submit" onClick={() => this.props.onRegister(this.state.username, this.state.password)}>Sign Up</Button>
+                    <Button basic color ="teal" type="submit" onClick={() => this.props.onRegister(this.state.username, this.state.password, this.state.paymentPointer)}>Sign Up</Button>
                     </Form>
                   </Modal.Description>
                 </Modal.Content>
@@ -97,7 +102,6 @@ SideBar.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-    console.log("state", state);
     return {
         description: state.sidebarReducer.description,
         user: state.sidebarReducer.user,

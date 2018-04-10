@@ -37,7 +37,6 @@ class CommentList extends React.Component {
   searchRecursiveNodes(topLevelComments, comments) {
     const postId = this.props.postId;
     return topLevelComments.map(comment => {
-      console.log("comment", comment);
       return(
         <div key={comment.id} style={{marginLeft: '10px'}}>
         <Card key={comment.id}>
@@ -47,7 +46,8 @@ class CommentList extends React.Component {
             {comment.upvoted ? <Icon name='chevron up' size="small" color="orange"></Icon> : <Icon name='chevron up' size="small" color="grey"></Icon>}
             <span style={{fontSize: '0.75em', marginRight: '10px'}}>{comment.upvotes} </span>
             {comment.downvoted ? <Icon name='chevron down' size="small" color="violet"></Icon> : <Icon name='chevron down' size="small" color="grey"></Icon>}
-            <span style={{fontSize: '0.75em'}}>{comment.downvotes} </span>
+            <span style={{fontSize: '0.75em', marginRight: '10px'}}>{comment.downvotes} </span>
+            {comment.gold > 0 ? <span><Icon name="star" style={{color: '#e1d073'}} size="small"></Icon> <span style={{fontSize: '0.75em', color: 'grey'}}> x {comment.gold} </span> </span> : null}
           </Card.Header>
           <Card.Description>
             <Icon name='terminal' />
@@ -55,25 +55,26 @@ class CommentList extends React.Component {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-        <Modal trigger={<Button onClick={() => this.handleOpen(comment.id)} style={{marginRight: '10px'}}>Reply</Button>}
-        open={this.state.modalOpen}
-        onClose={this.handleClose}
-        >
-          <Modal.Content>
-            <Modal.Description>
-              <Form className="post-comment">
-                <Form.TextArea className="post-comment-box" onChange={this.handleInputChange} label='Reply' name="comment" value={this.state.comment} placeholder='Post Comment...' />
-                <Form.Button onClick={() => {console.log("commentid", this.state.commentId);this.props.replyComment(this.state.comment, this.state.commentId, postId); this.setState({comment: '', modalOpen: false})}}>Submit</Form.Button>
-              </Form>
-            </Modal.Description>
-          </Modal.Content>
-        </Modal>
-        {
-          comment.upvoted ? <Button color='orange' style={{marginRight: '10px'}} onClick={() => this.props.unvoteComment(comment.id, postId)}>Upvote</Button> : <Button basic color='orange' style={{marginRight: '10px'}} onClick={() => this.props.voteComment(true, comment.id, postId)}>Upvote</Button>
-        }
-        {
-          comment.downvoted ? <Button color='violet' style={{marginRight: '10px'}} onClick={() => this.props.unvoteComment(comment.id, postId)}>Downvote</Button> : <Button basic color='violet' style={{marginRight: '10px'}} onClick={() => this.props.voteComment(false, comment.id, postId)}>Downvote</Button>
-        }
+          <Modal trigger={<Button onClick={() => this.handleOpen(comment.id)} style={{marginRight: '10px'}}>Reply</Button>}
+          open={this.state.modalOpen}
+          onClose={this.handleClose}
+          >
+            <Modal.Content>
+              <Modal.Description>
+                <Form className="post-comment">
+                  <Form.TextArea className="post-comment-box" onChange={this.handleInputChange} label='Reply' name="comment" value={this.state.comment} placeholder='Post Comment...' />
+                  <Form.Button onClick={() => {console.log("commentid", this.state.commentId);this.props.replyComment(this.state.comment, this.state.commentId, postId); this.setState({comment: '', modalOpen: false})}}>Submit</Form.Button>
+                </Form>
+              </Modal.Description>
+            </Modal.Content>
+          </Modal>
+          {
+            comment.upvoted ? <Button color='orange' style={{marginRight: '10px'}} onClick={() => this.props.unvoteComment(comment.id, postId)}>Upvote</Button> : <Button basic color='orange' style={{marginRight: '10px'}} onClick={() => this.props.voteComment(true, comment.id, postId)}>Upvote</Button>
+          }
+          {
+            comment.downvoted ? <Button color='violet' style={{marginRight: '10px'}} onClick={() => this.props.unvoteComment(comment.id, postId)}>Downvote</Button> : <Button basic color='violet' style={{marginRight: '10px'}} onClick={() => this.props.voteComment(false, comment.id, postId)}>Downvote</Button>
+          }
+          <Button style={{marginRight: '10px', backgroundColor: '#F4B350', color: 'white'}} onClick={() => this.props.giveGold(comment.user.paymentPointer, comment.id, postId)}> Give Gold </Button>
         </Card.Content>
         </Card>
         {comments.filter(x => x.parentId===comment.id).length !== 0 ? this.searchRecursiveNodes(comments.filter(x => x.parentId===comment.id), comments) : <div></div>}

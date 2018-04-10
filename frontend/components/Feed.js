@@ -11,6 +11,7 @@ class Feed extends React.Component {
     return(
       <Container className="post-container">
       {posts.map(post => {
+        console.log("POST", post);
         return(
           <div key={post.id} style={{marginBottom: '20px'}}>
               <img  height="50px" width="50px" style={{marginRight: '20px'}} src={post.imageUrl} />

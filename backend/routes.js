@@ -17,7 +17,7 @@ router.get('/post/all', async (req, res) => {
     order: [
       ['createdAt', 'DESC'],
     ],
-    include: [{model: Subreddit}]
+    include: [{ model: Subreddit }],
   });
   const postContents = post.map(postInstance => postInstance.get());
   return res.status(200).json({

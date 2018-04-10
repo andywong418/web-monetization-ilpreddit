@@ -40,8 +40,8 @@ router.get('/post/:id/comments/', (req, res) => {
 
             }
           });
-          callback();
           newCommentArr.push(comment);
+          callback();
         } else {
           newCommentArr.push(comment);
           callback();

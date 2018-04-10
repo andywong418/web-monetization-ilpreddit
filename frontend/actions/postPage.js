@@ -27,11 +27,18 @@ export const replyComment = (comment, commentId, postId) => async(dispatch) => {
 export const voteComment = (vote, commentId, postId) => async(dispatch) => {
   axios.post(`/api/comment/vote`, {vote, commentId, postId}).then(resp => {
     dispatch({type: 'VOTE_COMMENT', payload: resp.data});
-  })
-}
+  });
+};
 
 export const unvoteComment = (commentId, postId) => async(dispatch) => {
   axios.post(`/api/comment/unvote`, {commentId, postId}).then(resp => {
     dispatch({type: 'UNVOTE_COMMENT', payload: resp.data});
+  });
+};
+
+export const giveGold = (paymentPointer, commentId, postId) => async(dispatch) => {
+  axios.post('/api/comment/giveGold', { paymentPointer, commentId, postId }).then(resp => {
+    console.log("resp data", resp.data);
+    dispatch({type: 'GIVE_GOLD', payload: resp.data});
   })
 }

@@ -5,12 +5,15 @@ const passport = require('passport');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+const monetizerRoute = require('./backend/monetizerRoutes');
 const auth = require('./backend/authRoutes');
 const api = require('./backend/routes');
 const bodyParser = require('body-parser');
 const flash = require('connect-flash');
+const { WebMonetizationMiddleware, ExpressWebMonetization } = require('express-web-monetization');
+const cookieParser = require('cookie-parser');
 
+const monetizer = new ExpressWebMonetization({ maxBalance: 1000 });
 
 // configure req.flash()
 app.use(flash());
@@ -23,6 +26,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(WebMonetizationMiddleware(monetizer));
 app.use(session({
   secret: process.env.SESSIONSECRET,
   resave: false,
@@ -40,6 +45,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/', monetizerRoute(monetizer));
 app.get('/', (request, response) => {
   response.sendFile(`${__dirname}/public/index.html`); // For React/Redux
 });

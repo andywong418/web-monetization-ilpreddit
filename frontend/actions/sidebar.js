@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { push } from 'react-router-redux';
-export const onRegister = (username, password) => async(dispatch) => {
-    console.log("GETTING IN?", username, password);
+export const onRegister = (username, password, paymentPointer) => async(dispatch) => {
     const urlString = '/api/user/register';
-    axios.post(urlString, {username, password}).then(resp => {
-        console.log("resp", resp);
+    axios.post(urlString, { username, password, paymentPointer }).then(resp => {
         dispatch({type: 'REGISTER', payload: resp.data.user});
     })
     .catch(err => {

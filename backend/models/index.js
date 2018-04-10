@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize(process.env.DATABASE_NAME, 'postgres', process.env.DATABASE_PASSWORD, {
+const sequelize = new Sequelize(process.env.DATABASE_NAME, 'androswong', process.env.DATABASE_PASSWORD, {
   dialect: 'postgres',
 });
 
@@ -26,6 +26,9 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  paymentPointer: {
+    type: Sequelize.STRING,
+  },
 });
 
 const Subreddit = sequelize.define('subreddit', {
@@ -45,8 +48,8 @@ const Post = sequelize.define('post', {
     allowNull: false,
   },
   imageUrl: {
-    type: Sequelize.STRING
-  }
+    type: Sequelize.STRING,
+  },
 });
 
 const Comment = sequelize.define('comment', {
@@ -54,6 +57,10 @@ const Comment = sequelize.define('comment', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  gold: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  }
 });
 
 // -- JOIN related --

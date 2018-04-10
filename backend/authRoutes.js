@@ -60,9 +60,16 @@ const auth = (passport) => {
           error: 'A user with that username already exists!',
         });
       }
+      if (!req.body.paymentPointer) {
+        return res.status(200).json({
+          success: false,
+          error: 'No payment pointer set!',
+        });
+      }
       const newUser = await User.create({
         username: req.body.username,
         password: req.body.password,
+        paymentPointer: req.body.paymentPointer,
       });
       const user = newUser.get();
       delete user.password;

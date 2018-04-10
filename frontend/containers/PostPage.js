@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Form, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchViewPost, fetchComments, postComments, replyComment, voteComment, unvoteComment} from '../actions/postPage';
+import {fetchViewPost, fetchComments, postComments, replyComment, voteComment, unvoteComment, giveGold} from '../actions/postPage';
 import {Link} from 'react-router-dom';
 import Header from '../components/Header';
 import CommentList from '../components/CommentList';
@@ -55,7 +55,7 @@ class PostPage extends React.Component {
       </Form>
       </Container>
       <Container className="commentlist-container">
-      {comments.length !== 0 ? <CommentList comments={comments} replyComment = {this.props.replyComment} voteComment = {this.props.voteComment} unvoteComment = {this.props.unvoteComment} postId={post.id}/> : <div></div>}
+      {comments.length !== 0 ? <CommentList comments={comments} replyComment = {this.props.replyComment} voteComment = {this.props.voteComment} unvoteComment = {this.props.unvoteComment} giveGold = {this.props.giveGold} postId={post.id}/> : <div></div>}
       </Container>
       </div>
     )
@@ -70,6 +70,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({fetchViewPost, fetchComments, postComments, replyComment, voteComment, unvoteComment}, dispatch);
+    return bindActionCreators({fetchViewPost, fetchComments, postComments, replyComment, voteComment, unvoteComment, giveGold}, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

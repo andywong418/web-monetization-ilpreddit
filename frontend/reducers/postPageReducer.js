@@ -1,6 +1,6 @@
 const defaultState ={
   post: {},
-  comments: []
+  comments: [],
 };
 
 export default function(state=defaultState, action) {
@@ -45,6 +45,15 @@ export default function(state=defaultState, action) {
       }
     });
     return newCommentState5;
+    case 'GIVE_GOLD':
+      const newCommentState6 = Object.assign({}, state);
+      newCommentState6.comments = newCommentState6.comments.slice();
+      newCommentState6.comments.forEach((comment, index) => {
+        if(comment.id === action.payload.id) {
+          newCommentState6.comments[index].gold = action.payload.gold;
+        }
+      })
+      return newCommentState6
     default:
       return state;
   }
