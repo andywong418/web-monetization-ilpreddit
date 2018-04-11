@@ -29,6 +29,13 @@ export const subscribeSubreddit = (subredditId) => async(dispatch) => {
     dispatch({type: 'NEW_SUBSCRIPTION', payload: resp.data});
   })
 }
+
+export const fetchUser = () => async (dispatch) =>{
+  console.log("getting in action")
+  axios.get('/api/user/').then(resp => {
+    dispatch({type: 'FETCH_USER', payload: resp.data})
+  })
+}
 export const onNavigateTo = (store, dest) => async(dispatch) => {
   dispatch(push(dest));
 }

@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, Header, Form, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import {onRegister, onLogin, onLogOut, subscribeSubreddit} from '../actions/sidebar';
+import {onRegister, onLogin, onLogOut, subscribeSubreddit, fetchUser} from '../actions/sidebar';
 import {bindActionCreators} from 'redux';
 import {isEmpty} from '../utils/index';
 import { history } from '../store/configureStore';
@@ -23,7 +23,9 @@ class SideBar extends React.Component {
         this.submitPost = this.submitPost.bind(this);
         this.submitSubreddit = this.submitSubreddit.bind(this);
     }
-
+    componentDidMount() {
+      this.props.fetchUser();
+    }
     handleOpen(state) {this.setState({ modalOpen: true, modalState: state  });}
 
     handleClose() {this.setState({ modalOpen: false });}
@@ -143,6 +145,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({onRegister, onLogin, onLogOut, subscribeSubreddit}, dispatch);
+    return bindActionCreators({onRegister, onLogin, onLogOut, subscribeSubreddit, fetchUser}, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

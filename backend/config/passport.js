@@ -10,7 +10,8 @@ const passportSetup = (passport) => {
 
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await User.findById(id);
+      let user = await User.findById(id);
+      user = user.get();
       done(null, user);
     } catch (err) {
       done(err, null);
