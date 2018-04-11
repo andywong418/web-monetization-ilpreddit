@@ -3,7 +3,8 @@ import { routerReducer } from 'react-router-redux';
 import sidebarReducer from './sidebarReducer';
 import fetchPostsReducer from './postsReducer';
 import postPageReducer from './postPageReducer';
-
+import subredditReducer from './subredditReducer';
+import subscriptionReducer from './subscriptionReducer';
 function rootReducer(state = { name: 'Horizons' }, action) {
   switch (action.type) {
     default:
@@ -17,6 +18,8 @@ const mainReducer = combineReducers({
   sidebarReducer,
   fetchPostsReducer,
   postPageReducer,
+  subredditReducer,
+  subscriptionReducer,
 });
 
 export default mainReducer;

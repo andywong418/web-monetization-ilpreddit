@@ -4,7 +4,7 @@ const { User } = require('../models');
 
 const passportSetup = (passport) => {
   passport.serializeUser((user, done) => {
-    const userId = user.get().id;
+    const userId = user.id;
     done(null, userId);
   });
 

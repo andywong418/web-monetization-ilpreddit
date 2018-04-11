@@ -1,9 +1,9 @@
 import React from 'react';
 // import {Link} from 'react-router';
 import PropTypes from 'prop-types';
-import { Button, Modal, Header, Form } from 'semantic-ui-react';
+import { Button, Modal, Header, Form, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import {onRegister, onLogin, onLogOut} from '../actions/sidebar';
+import {onRegister, onLogin, onLogOut, subscribeSubreddit} from '../actions/sidebar';
 import {bindActionCreators} from 'redux';
 import {isEmpty} from '../utils/index';
 import { history } from '../store/configureStore';
@@ -14,15 +14,17 @@ class SideBar extends React.Component {
             username: '',
             password: '',
             paymentPointer: '',
-            modalOpen: false
+            modalOpen: false,
+            modalState: '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.submitPost = this.submitPost.bind(this);
+        this.submitSubreddit = this.submitSubreddit.bind(this);
     }
 
-    handleOpen() {this.setState({ modalOpen: true });}
+    handleOpen(state) {this.setState({ modalOpen: true, modalState: state  });}
 
     handleClose() {this.setState({ modalOpen: false });}
 
@@ -30,6 +32,15 @@ class SideBar extends React.Component {
       if(!isEmpty(this.props.user)) {
         // redirect to different page
         history.push('/post/new');
+      } else {
+        this.setState({modalOpen: true});
+      }
+    }
+
+    submitSubreddit() {
+      if(!isEmpty(this.props.user)) {
+        // redirect to different page
+        history.push('/subreddit/new');
       } else {
         this.setState({modalOpen: true});
       }
@@ -47,46 +58,68 @@ class SideBar extends React.Component {
         });
     }
     render() {
+        let subscribed = false;
+        if(this.props.subredditId) {
+          this.props.subscriptions.forEach(subscription => {
+            if(subscription.subredditId === this.props.subredditId && subscription.subreddit.name === this.props.subreddit) {
+              subscribed = true;
+            }
+          })
+        }
         return (
           <div className="sidebar-container">
-            <Button basic color="teal" className="create-subreddit"> Create a new subreddit </Button>
+            {this.props.subreddit ?
+              <div style= {{marginBottom: '30px'}}>
+                <h3> /{this.props.subreddit} </h3>
+                <p style = {{maxWidth: '80%', marginLeft: '10%'}}> {this.props.subredditDescription} </p>
+                {isEmpty(this.props.user) ? null : subscribed ? <Button basic color="orange"> Subscribed </Button> : <Button color="orange" onClick={() => this.props.subscribeSubreddit(this.props.subredditId)}> Subscribe </Button>}
+              </div>
+              :
+              null
+            }
+            <Button basic color="teal" className="create-subreddit" onClick={this.submitSubreddit}> Create a new subreddit </Button>
             <Button basic color="red" onClick={this.submitPost}>Submit a new post</Button>
-            {isEmpty(this.props.user) ?   <div className="register-login">
-              <Modal trigger={        <Button.Group>
-                        <Button onClick={this.handleOpen} >Log in</Button>
-                        <Button.Or />
-                        <Button positive onClick={this.handleOpen}>Sign Up</Button>
-                      </Button.Group>}
+            {isEmpty(this.props.user) ?
+              <div className="register-login">
+                <Modal trigger={
+                        <Button.Group>
+                          <Button onClick={() => this.handleOpen('login')} >Log in</Button>
+                          <Button.Or />
+                          <Button positive onClick={() => this.handleOpen('signup')}>Sign Up</Button>
+                        </Button.Group>
+                      }
                       open={this.state.modalOpen}
                       onClose={this.handleClose}
-              >
-                <Modal.Header>Log In Or Sign Up!</Modal.Header>
-                <Modal.Content >
-                  <Modal.Description>
-                  <Form>
-                    <Form.Field>
-                      <label>Username</label>
-                      <input onChange={this.handleInputChange} name="username" placeholder="Username" />
-                    </Form.Field>
-                    <Form.Field>
-                      <label>Password</label>
-                      <input onChange={this.handleInputChange} name="password" type="password" placeholder="Password" />
-                    </Form.Field>
-                    <Form.Field>
-                      <label>Payment Pointer</label>
-                      <input onChange={this.handleInputChange} name="paymentPointer" placeholder="Payment Pointer" />
-                    </Form.Field>
-                    <Button basic color ="orange" type="submit" onClick={() => this.props.onLogin(this.state.username, this.state.password)}>Log in</Button>
-                    <Button basic color ="teal" type="submit" onClick={() => this.props.onRegister(this.state.username, this.state.password, this.state.paymentPointer)}>Sign Up</Button>
-                    </Form>
-                  </Modal.Description>
-                </Modal.Content>
-              </Modal>
-              </div> : <div style={{marginTop: '20px'}} className="logout-btn"><Button color="red" onClick={() => this.props.onLogOut(this.props.user)}>Log out</Button> </div>}
-
-            <div>
-              {this.props.description}
-            </div>
+                >
+                  <Modal.Header>{this.state.modalState === 'login' ? 'Log In' : 'Sign Up'}</Modal.Header>
+                  <Modal.Content >
+                    <Modal.Description>
+                    <Form>
+                      <Form.Field>
+                        <label>Username</label>
+                        <input onChange={this.handleInputChange} name="username" placeholder="Username" />
+                      </Form.Field>
+                      <Form.Field>
+                        <label>Password</label>
+                        <input onChange={this.handleInputChange} name="password" type="password" placeholder="Password" />
+                      </Form.Field>
+                      {this.state.modalState === 'signup' ?
+                        <Form.Field>
+                          <label>Payment Pointer</label>
+                          <input onChange={this.handleInputChange} name="paymentPointer" placeholder="Payment Pointer" />
+                        </Form.Field>
+                        :
+                        null
+                      }
+                      {this.state.modalState === 'login' ? <Button basic color ="orange" type="submit" onClick={() => this.props.onLogin(this.state.username, this.state.password)}>Log in</Button> : null}
+                      {this.state.modalState === 'signup' ? <Button basic color ="teal" type="submit" onClick={() => this.props.onRegister(this.state.username, this.state.password, this.state.paymentPointer)}>Sign Up</Button> : null}
+                      </Form>
+                    </Modal.Description>
+                  </Modal.Content>
+                </Modal>
+              </div>
+              :
+              <div style={{marginTop: '20px'}} className="logout-btn"><Button color="red" onClick={() => this.props.onLogOut(this.props.user)}>Log out</Button> </div>}
           </div>
         );
     }
@@ -110,6 +143,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({onRegister, onLogin, onLogOut}, dispatch);
+    return bindActionCreators({onRegister, onLogin, onLogOut, subscribeSubreddit}, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

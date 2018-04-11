@@ -36,6 +36,10 @@ const Subreddit = sequelize.define('subreddit', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  }
 });
 
 const Post = sequelize.define('post', {
@@ -78,7 +82,13 @@ const CommentVote = sequelize.define('comment_vote', {
     allowNull: false,
   },
 });
-
+const Subscription = sequelize.define('subscriptions', {
+  id: {
+    primaryKey: true,
+    type: Sequelize.INTEGER,
+    autoIncrement: true
+  }
+});
 // Associations
 
 // Creation of subscriptions
@@ -94,6 +104,17 @@ Subreddit.belongsToMany(User, {
   foreignKey: 'subredditId',
 });
 
+Subscription.belongsTo(User, {
+  foreignKey: 'userId',
+});
+
+Subscription.belongsTo(Subreddit, {
+  foreignKey: 'subredditId',
+});
+
+Subreddit.belongsTo(User, {
+  foreignKey: 'ownerId',
+});
 // Post associations
 Post.belongsTo(Subreddit, {
   foreignKey: 'subredditId',
@@ -142,4 +163,5 @@ module.exports = {
   Comment,
   PostVote,
   CommentVote,
+  Subscription
 };

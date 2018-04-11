@@ -11,13 +11,12 @@ class Feed extends React.Component {
     return(
       <Container className="post-container">
       {posts.map(post => {
-        console.log("POST", post);
         return(
           <div key={post.id} style={{marginBottom: '20px'}}>
               <img  height="50px" width="50px" style={{marginRight: '20px'}} src={post.imageUrl} />
               <div style={{display: 'inline-block'}}>
-                <h1 style={{marginBottom: '0'}}><Link to={"/view/post/" + post.id}> {post.title} </Link> <span style={{fontSize: '15px', color: 'grey'}}>{'/' + post.subreddit.name}</span></h1>
-                <p> {post.content.slice(0,120)}... </p>
+                <h1 style={{marginBottom: '0'}}><Link to={"/view/post/" + post.id}> {post.title} </Link> <Link to={"/subreddit/view/" + post.subreddit.name}><span style={{fontSize: '15px', color: 'grey'}}>{'/' + post.subreddit.name}</span></Link></h1>
+                <p> {post.content.length > 120 ? post.content.slice(0,120) : post.content} </p>
               </div>
           </div>
         )

@@ -30,7 +30,6 @@ app.use(cookieParser());
 app.use(WebMonetizationMiddleware(monetizer));
 app.use(session({
   secret: process.env.SESSIONSECRET,
-  resave: false,
   saveUninitialized: true,
 }));
 
@@ -46,13 +45,13 @@ app.use((req, res, next) => {
 });
 
 app.use('/', monetizerRoute(monetizer));
-app.get('/', (request, response) => {
-  response.sendFile(`${__dirname}/public/index.html`); // For React/Redux
-});
 
 app.use('/api', auth(passport));
 app.use('/api', api);
 
+app.get('*', (request, response) => {
+  response.sendFile(`${__dirname}/public/index.html`); // For React/Redux
+});
 app.listen(PORT, (error) => {
   if (error) {
     console.error(error);

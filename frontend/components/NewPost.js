@@ -5,6 +5,8 @@ import { Form, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {onPost} from '../actions/newPost';
+import { Dropdown } from 'semantic-ui-react';
+
 class NewPost extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,7 @@ class NewPost extends React.Component {
       title: '',
       content: '',
       imageUrl: '',
+      subreddit: '',
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -28,9 +31,19 @@ class NewPost extends React.Component {
       });
   }
 
-
+  setSubreddit(event, data) {
+    console.log("event", event, data.value);
+    this.setState({ subreddit: data.value });
+  }
   render() {
-    const {onPost} = this.props;
+    let {onPost, subreddits} = this.props;
+    // Parse subreddits
+    subreddits = subreddits.map(subreddit => {
+      return {
+        text: subreddit.name,
+        value: subreddit.id
+      }
+    });
     return (
       <Container>
       <h1> Create a New Post </h1>
@@ -42,14 +55,22 @@ class NewPost extends React.Component {
         <Form.Group>
           <Form.Input onChange={this.handleInputChange} label='Image or Link URL' name="imageUrl" placeholder='Image or Link' value={this.state.imageUrl}/>
         </Form.Group>
-        <Form.Button onClick={() => onPost(this.state.title, this.state.content, this.state.imageUrl)}>Submit</Form.Button>
+        <Form.Group>
+          <Dropdown placeholder='Select Subreddit' fluid search selection options={subreddits} onChange={(event, data) => this.setSubreddit(event, data)}/>
+        </Form.Group>
+        <Form.Button onClick={() => onPost(this.state.title, this.state.content, this.state.imageUrl, this.state.subreddit)}>Submit</Form.Button>
       </Form>
       </Container>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    subreddits: state.subredditReducer.subreddits
+  }
+}
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({onPost}, dispatch);
 };
-export default connect(null, mapDispatchToProps)(NewPost);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

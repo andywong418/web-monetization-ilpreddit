@@ -24,7 +24,11 @@ export const onLogOut = (user) => async(dispatch) => {
     });
 };
 
+export const subscribeSubreddit = (subredditId) => async(dispatch) => {
+  axios.post('/api/subreddit/subscribe', { subredditId }).then(resp => {
+    dispatch({type: 'NEW_SUBSCRIPTION', payload: resp.data});
+  })
+}
 export const onNavigateTo = (store, dest) => async(dispatch) => {
-  console.log("dest", dest);
   dispatch(push(dest));
 }

@@ -72,7 +72,9 @@ router.post('/unvote', (req, res) => {
 });
 
 router.post('/giveGold', async (req, res) => {
-  // Pay
+  // Collect money from user first
+  // await req.awaitBalance(200);
+  req.spend(200);
   console.log('connecting plugin', req.body);
   await plugin.connect();
   console.log('sending payment to ' + req.body.paymentPointer );

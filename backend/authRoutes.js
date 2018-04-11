@@ -71,12 +71,15 @@ const auth = (passport) => {
         password: req.body.password,
         paymentPointer: req.body.paymentPointer,
       });
-      const user = newUser.get();
-      delete user.password;
-      return res.status(201).json({
-        success: true,
-        user,
-      });
+      await req.login(newUser, (err) => {
+        const user = newUser.get();
+        delete user.password;
+        return res.status(201).json({
+          success: true,
+          user,
+        });
+      })
+
     } catch (err) {
       console.error('Error encountered during user creation at POST /register route: ', err);
       return res.status(500).json({

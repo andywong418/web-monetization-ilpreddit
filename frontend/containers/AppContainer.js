@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Home from './Home';
 import NewPost from '../components/NewPost';
 import PostPage from './PostPage';
+import NewSubreddit from '../components/NewSubreddit';
 import { Route } from 'react-router-dom';
 import { ConnectedRouter} from 'react-router-redux';
 import {withRouter} from 'react-router';
@@ -12,6 +13,8 @@ const App = () => {
     <div>
       <Route exact path="/" component={Home}/>
       <Route path="/post/new" component={NewPost} />
+      <Route exact path="/subreddit/new" component={NewSubreddit} />
+      <Route path="/subreddit/view/:name" component={Home} />
       <Route path="/view/post/:id" component={PostPage} />
     </div>
   );
