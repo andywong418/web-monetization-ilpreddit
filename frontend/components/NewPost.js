@@ -56,9 +56,12 @@ class NewPost extends React.Component {
           <Form.Input onChange={this.handleInputChange} label='Image or Link URL' name="imageUrl" placeholder='Image or Link' value={this.state.imageUrl}/>
         </Form.Group>
         <Form.Group>
-          <Dropdown placeholder='Select Subreddit' fluid search selection options={subreddits} onChange={(event, data) => this.setSubreddit(event, data)}/>
+          <Form.Field>
+            <label> Subreddit to post to </label>
+            <Dropdown placeholder='Select Subreddit' search selection options={subreddits} onChange={(event, data) => this.setSubreddit(event, data)}/>
+          </Form.Field>
         </Form.Group>
-        <Form.Button onClick={() => onPost(this.state.title, this.state.content, this.state.imageUrl, this.state.subreddit)}>Submit</Form.Button>
+        <Form.Button style={{marginTop: '10px'}} onClick={() => onPost(this.state.title, this.state.content, this.state.imageUrl, this.state.subreddit)}>Submit</Form.Button>
       </Form>
       </Container>
     )
