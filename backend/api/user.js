@@ -31,8 +31,6 @@ router.get('/:username', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  console.log("maybe?", req.user);
-  // req.user = req.user.get()
   const userCopy = Object.assign({}, req.user);
   delete userCopy.password;
   res.status(200).send(userCopy);

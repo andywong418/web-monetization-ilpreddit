@@ -31,7 +31,6 @@ export const subscribeSubreddit = (subredditId) => async(dispatch) => {
 }
 
 export const fetchUser = () => async (dispatch) =>{
-  console.log("getting in action")
   axios.get('/api/user/').then(resp => {
     dispatch({type: 'FETCH_USER', payload: resp.data})
   })

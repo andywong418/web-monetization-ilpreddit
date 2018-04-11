@@ -32,7 +32,6 @@ class NewPost extends React.Component {
   }
 
   setSubreddit(event, data) {
-    console.log("event", event, data.value);
     this.setState({ subreddit: data.value });
   }
   render() {

@@ -6,7 +6,7 @@ import AppContainer from './AppContainer.js';
 export default function Root({ store, history }) {
     return (
         <Provider store={store}>
-            <AppContainer history={history}/>
+            <AppContainer history={history} store={store}/>
         </Provider>
     );
 }

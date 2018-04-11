@@ -38,7 +38,6 @@ export const unvoteComment = (commentId, postId) => async(dispatch) => {
 
 export const giveGold = (paymentPointer, commentId, postId) => async(dispatch) => {
   axios.post('/api/comment/giveGold', { paymentPointer, commentId, postId }).then(resp => {
-    console.log("resp data", resp.data);
     dispatch({type: 'GIVE_GOLD', payload: resp.data});
   })
 }
