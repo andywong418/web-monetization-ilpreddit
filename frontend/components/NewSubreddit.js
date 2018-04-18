@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {onNewSubreddit} from '../actions/NewSubreddit';
+import {onNewSubreddit} from '../actions/newSubreddit';
 class NewSubreddit extends React.Component {
   constructor(props) {
     super(props);
