@@ -79,7 +79,7 @@ class SideBar extends React.Component {
               :
               null
             }
-            <Button basic color="teal" className="create-subreddit" onClick={this.submitSubreddit}> Create a new subreddit </Button>
+            <Button basic color="teal" className="create-subreddit" onClick={this.submitSubreddit}> Create a new thread </Button>
             <Button basic color="red" onClick={this.submitPost}>Submit a new post</Button>
             {isEmpty(this.props.user) ?
               <div className="register-login">

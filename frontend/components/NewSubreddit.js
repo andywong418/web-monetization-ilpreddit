@@ -29,7 +29,7 @@ class NewSubreddit extends React.Component {
     const {onNewSubreddit} = this.props;
     return (
       <Container>
-      <h1> Create a New Subreddit </h1>
+      <h1> Create a New Thread </h1>
       <Form>
         <Form.Group>
           <Form.Input onChange={this.handleInputChange} label='Title' name="title" placeholder='Title' name="title" value={this.state.title}/>
